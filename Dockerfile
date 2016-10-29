@@ -22,10 +22,12 @@ RUN apt-get update && apt-get install -y \
 ADD . /root/openface
 RUN cd ~/openface && \
     ./models/get-models.sh && \
+    python -m pip install --upgrade pip && \
+    python -m pip install grpcio && \
     pip2 install -r requirements.txt && \
     python2 setup.py install && \
     pip2 install -r demos/web/requirements.txt && \
     pip2 install -r training/requirements.txt
 
 EXPOSE 8000 9000
-CMD /bin/bash -l -c '/root/openface/demos/web/start-servers.sh'
+CMD /bin/bash -l -c '/root/src/openface/project/start-server.sh'
